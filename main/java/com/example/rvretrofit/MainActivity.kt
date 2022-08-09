@@ -2,11 +2,9 @@ package com.example.rvretrofit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rvretrofit.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), SongView {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -15,24 +13,17 @@ class MainActivity : AppCompatActivity(), SongView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.listRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.listRv.setHasFixedSize(true)
-        getSongList()
+        initTransactionEvent()
     }
 
-    private fun getSongList() {
-        val songService = SongService()
-        songService.setSongView(this)
-        songService.getSongList()
-    }
+    private fun initTransactionEvent() {
+        val songListFragment = SongListFragment()
 
-    override fun onGetSongListSuccess(songList: SongResponse) {
-        binding.listRv.adapter = SongRVAdapter(songList.result.songs)
-        Toast.makeText(this, "곡 목록을 불러오는데에 성공했습니다", Toast.LENGTH_SHORT).show()
+        // FragmentManager 호출
+        supportFragmentManager.beginTransaction().add(R.id.main_fv, songListFragment).commit()
 
-    }
-
-    override fun onGetSongListFailure() {
-        Toast.makeText(this, "곡 목록을 불러오는데에 실패했습니다", Toast.LENGTH_SHORT).show()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.main_fv, songListFragment)
+        transaction.commit()
     }
 }

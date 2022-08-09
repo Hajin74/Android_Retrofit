@@ -16,6 +16,9 @@
         android:theme="@style/Theme.RVRetrofit"
         tools:targetApi="31">
         <activity
+            android:name=".fragment_song_list"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 class SongRVAdapter(val songList: List<SongList>): RecyclerView.Adapter<SongRVAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongRVAdapter.MyViewHolder {
+        Log.d("onCreateViewHolder() /", " 메소드 called")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
 
         return MyViewHolder(view)
